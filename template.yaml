@@ -16,7 +16,6 @@ Globals:
 Parameters:
   EmailAddress:
     Type: String
-    Default: issei.hamada@sonybn.co.jp
 
 Resources:
   Topic:
