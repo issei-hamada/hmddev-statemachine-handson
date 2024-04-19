@@ -1,0 +1,124 @@
+{
+    "version": "0",
+    "id": "92b1952c-18f0-313f-5847-e24927b37b4a",
+    "detail-type": "Security Hub Findings - Imported",
+    "source": "aws.securityhub",
+    "account": "254867678432",
+    "time": "2023-11-15T07:30:08Z",
+    "region": "ap-northeast-1",
+    "resources": [
+        "arn:aws:securityhub:ap-northeast-1::product/aws/guardduty/arn:aws:guardduty:ap-northeast-1:254867678432:detector/50ba5cfded95ad86dbef250ff74a749c/finding/d9aca603b34f45d8ae922b2c03d0d1d2"
+    ],
+    "detail": {
+        "findings": [
+            {
+                "ProductArn": "arn:aws:securityhub:ap-northeast-1::product/aws/guardduty",
+                "Types": [
+                    "TTPs/Command and Control/Backdoor:EC2-DenialOfService.Dns"
+                ],
+                "SourceUrl": "https://ap-northeast-1.console.aws.amazon.com/guardduty/home?region=ap-northeast-1#/findings?macros=current&fId=d9aca603b34f45d8ae922b2c03d0d1d2",
+                "Description": "EC2 instance i-99999999 is behaving in a manner that may indicate it is being used to perform a Denial of Service (DoS) attack using DNS protocol.",
+                "ProductName": "GuardDuty",
+                "FirstObservedAt": "2023-08-04T01:59:25.000Z",
+                "CreatedAt": "2023-08-04T01:59:25.190Z",
+                "LastObservedAt": "2023-11-15T07:29:42.000Z",
+                "CompanyName": "Amazon",
+                "FindingProviderFields": {
+                    "Types": [
+                        "TTPs/Command and Control/Backdoor:EC2-DenialOfService.Dns"
+                    ],
+                    "Severity": {
+                        "Normalized": 75,
+                        "Label": "HIGH",
+                        "Product": 8
+                    }
+                },
+                "ProductFields": {
+                    "aws/guardduty/service/action/networkConnectionAction/remotePortDetails/portName": "DNS",
+                    "aws/guardduty/service/archived": "false",
+                    "aws/guardduty/service/action/networkConnectionAction/remoteIpDetails/organization/asnOrg": "GeneratedFindingASNOrg",
+                    "aws/guardduty/service/additionalInfo/value": "{\"sample\":true}",
+                    "aws/guardduty/service/action/networkConnectionAction/remoteIpDetails/geoLocation/lat": "0",
+                    "aws/guardduty/service/action/networkConnectionAction/remoteIpDetails/ipAddressV4": "198.51.100.0",
+                    "aws/guardduty/service/action/networkConnectionAction/remoteIpDetails/geoLocation/lon": "0",
+                    "aws/guardduty/service/action/networkConnectionAction/blocked": "false",
+                    "aws/guardduty/service/action/networkConnectionAction/remotePortDetails/port": "53",
+                    "aws/guardduty/service/action/networkConnectionAction/remoteIpDetails/country/countryName": "GeneratedFindingCountryName",
+                    "aws/guardduty/service/serviceName": "guardduty",
+                    "aws/guardduty/service/action/networkConnectionAction/localIpDetails/ipAddressV4": "10.0.0.23",
+                    "aws/guardduty/service/detectorId": "50ba5cfded95ad86dbef250ff74a749c",
+                    "aws/guardduty/service/action/networkConnectionAction/remoteIpDetails/organization/org": "GeneratedFindingORG",
+                    "aws/guardduty/service/action/networkConnectionAction/connectionDirection": "OUTBOUND",
+                    "aws/guardduty/service/eventFirstSeen": "2023-08-04T01:59:25.000Z",
+                    "aws/guardduty/service/eventLastSeen": "2023-11-15T07:29:42.000Z",
+                    "aws/guardduty/service/action/networkConnectionAction/localPortDetails/portName": "Unknown",
+                    "aws/guardduty/service/action/actionType": "NETWORK_CONNECTION",
+                    "aws/guardduty/service/action/networkConnectionAction/remoteIpDetails/city/cityName": "GeneratedFindingCityName",
+                    "aws/guardduty/service/resourceRole": "ACTOR",
+                    "aws/guardduty/service/action/networkConnectionAction/localPortDetails/port": "24198",
+                    "aws/guardduty/service/action/networkConnectionAction/protocol": "UDP",
+                    "aws/guardduty/service/count": "3",
+                    "aws/guardduty/service/additionalInfo/sample": "true",
+                    "aws/guardduty/service/action/networkConnectionAction/remoteIpDetails/organization/asn": "-1",
+                    "aws/guardduty/service/additionalInfo/type": "default",
+                    "aws/guardduty/service/action/networkConnectionAction/remoteIpDetails/organization/isp": "GeneratedFindingISP",
+                    "aws/securityhub/FindingId": "arn:aws:securityhub:ap-northeast-1::product/aws/guardduty/arn:aws:guardduty:ap-northeast-1:254867678432:detector/50ba5cfded95ad86dbef250ff74a749c/finding/d9aca603b34f45d8ae922b2c03d0d1d2",
+                    "aws/securityhub/ProductName": "GuardDuty",
+                    "aws/securityhub/CompanyName": "Amazon"
+                },
+                "SchemaVersion": "2018-10-08",
+                "GeneratorId": "arn:aws:guardduty:ap-northeast-1:254867678432:detector/50ba5cfded95ad86dbef250ff74a749c",
+                "Sample": true,
+                "RecordState": "ACTIVE",
+                "Title": "EC2 instance i-99999999 is behaving in a manner that may indicate it is being used to perform a Denial of Service (DoS) attack using DNS protocol.",
+                "Workflow": {
+                    "Status": "NEW"
+                },
+                "Severity": {
+                    "Normalized": 75,
+                    "Label": "HIGH",
+                    "Product": 8
+                },
+                "UpdatedAt": "2023-11-15T07:29:42.179Z",
+                "WorkflowState": "NEW",
+                "AwsAccountId": "254867678432",
+                "Region": "ap-northeast-1",
+                "Id": "arn:aws:guardduty:ap-northeast-1:254867678432:detector/50ba5cfded95ad86dbef250ff74a749c/finding/d9aca603b34f45d8ae922b2c03d0d1d2",
+                "Resources": [
+                    {
+                        "Partition": "aws",
+                        "Type": "AwsEc2Instance",
+                        "Details": {
+                            "AwsEc2Instance": {
+                                "Type": "m3.xlarge",
+                                "VpcId": "GeneratedFindingVPCId",
+                                "ImageId": "ami-99999999",
+                                "IpV4Addresses": [
+                                    "10.0.0.1",
+                                    "198.51.100.0"
+                                ],
+                                "SubnetId": "GeneratedFindingSubnetId",
+                                "LaunchedAt": "2016-08-02T02:05:06.000Z",
+                                "IamInstanceProfileArn": "arn:aws:iam::254867678432:example/instance/profile"
+                            }
+                        },
+                        "Region": "ap-northeast-1",
+                        "Id": "arn:aws:ec2:ap-northeast-1:254867678432:instance/i-99999999",
+                        "Tags": {
+                            "GeneratedFindingInstanceTag1": "GeneratedFindingInstanceValue1",
+                            "GeneratedFindingInstanceTag2": "GeneratedFindingInstanceTagValue2",
+                            "GeneratedFindingInstanceTag3": "GeneratedFindingInstanceTagValue3",
+                            "GeneratedFindingInstanceTag4": "GeneratedFindingInstanceTagValue4",
+                            "GeneratedFindingInstanceTag5": "GeneratedFindingInstanceTagValue5",
+                            "GeneratedFindingInstanceTag6": "GeneratedFindingInstanceTagValue6",
+                            "GeneratedFindingInstanceTag7": "GeneratedFindingInstanceTagValue7",
+                            "GeneratedFindingInstanceTag8": "GeneratedFindingInstanceTagValue8",
+                            "GeneratedFindingInstanceTag9": "GeneratedFindingInstanceTagValue9"
+                        }
+                    }
+                ],
+                "ProcessedAt": "2023-11-15T07:30:03.615Z"
+            }
+        ]
+    }
+}

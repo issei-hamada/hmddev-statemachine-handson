@@ -1,0 +1,20 @@
+---
+Comment: A description of my state machine
+StartAt: Function
+States:
+  Function:
+    Type: Task
+    Resource: arn:aws:states:::lambda:invoke
+    Parameters:
+      Payload.$: "$"
+      FunctionName: '${Function}'
+    ResultPath: "$.Function"
+    Next: SnsPublish
+  SnsPublish:
+    Type: Task
+    Resource: arn:aws:states:::aws-sdk:sns:publish
+    Parameters:
+      TopicArn: '${SnsTopic}'
+      Message.$: "$.Function.Payload.Message"
+      Subject.$: "$.Function.Payload.Subject"
+    End: true

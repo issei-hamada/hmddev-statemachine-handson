@@ -1,0 +1,9 @@
+version = 0.1
+[default.deploy.parameters]
+stack_name = "hmddev-statemachine-handson"
+resolve_s3 = true
+s3_prefix = "hmddev-statemachine-handson"
+region = "ap-northeast-1"
+capabilities = "CAPABILITY_IAM"
+parameter_overrides = "EmailAddress=\"issei.hamada@sonybn.co.jp\""
+image_repositories = []

@@ -1,0 +1,143 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Resource that you try to build AWS Step Functions.
+
+Globals:
+  Function:
+    Architectures:
+      - x86_64
+    Handler: app.lambda_handler
+    MemorySize: 128
+    Runtime: python3.11
+    Timeout: 60
+    Tracing: Active
+
+Parameters:
+  EmailAddress:
+    Type: String
+    Default: issei.hamada@sonybn.co.jp
+
+Resources:
+  Topic:
+    Type: "AWS::SNS::Topic"
+
+  Subscription:
+    Type: "AWS::SNS::Subscription"
+    Properties:
+      TopicArn: !Ref Topic
+      Endpoint: !Ref EmailAddress
+      Protocol: "email"
+
+  LambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+            - lambda.amazonaws.com
+          Action:
+          - sts:AssumeRole
+      Path: /
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AWSXrayWriteOnlyAccess
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+
+  Function:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: functions/
+      Role: !GetAtt LambdaRole.Arn
+
+  FunctionsLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName:
+        Fn::Sub: /aws/lambda/${Function}
+      RetentionInDays: 180
+
+  StateMachinePolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Sid: Logging
+            Effect: Allow
+            Action:
+              - 'logs:CreateLogDelivery'
+              - 'logs:GetLogDelivery'
+              - 'logs:UpdateLogDelivery'
+              - 'logs:DeleteLogDelivery'
+              - 'logs:ListLogDeliveries'
+              - 'logs:PutResourcePolicy'
+              - 'logs:DescribeResourcePolicies'
+              - 'logs:DescribeLogGroups'
+            Resource: '*'
+          - Sid: SNS
+            Effect: Allow
+            Action:
+              - sns:Publish
+            Resource: !Ref Topic
+          - Sid: Lambda
+            Effect: Allow
+            Action:
+              - lambda:InvokeFunction
+            Resource:
+              - !GetAtt Function.Arn
+
+  StateMachineRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+            - states.amazonaws.com
+          Action:
+          - sts:AssumeRole
+      Path: /
+      ManagedPolicyArns:
+        - !Ref StateMachinePolicy
+        - arn:aws:iam::aws:policy/AWSXrayWriteOnlyAccess
+
+  StateMachineLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      RetentionInDays: 180
+      LogGroupName: "/aws/states/hmddevHandsOn"
+
+  StateMachine:
+    Type: AWS::Serverless::StateMachine
+    Properties:
+      DefinitionUri: statemachine/statemachine.asl.yaml
+      DefinitionSubstitutions:
+        Function: !GetAtt Function.Arn
+        SnsTopic: !Ref Topic
+      Role: !GetAtt StateMachineRole.Arn
+      Logging:
+        Destinations:
+          - CloudWatchLogsLogGroup:
+              LogGroupArn: !GetAtt StateMachineLogGroup.Arn
+        Level: ALL
+        IncludeExecutionData: True
+      Tracing:
+        Enabled: True
+      Events:
+        Rule1:
+          Type: EventBridgeRule
+          Properties:
+            Pattern:
+              source:
+                - aws.securityhub
+              detail-type:
+                - Security Hub Findings - Imported
+              detail:
+                findings:
+                  ProductName:
+                    - GuardDuty
